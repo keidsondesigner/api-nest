@@ -3,6 +3,7 @@ import { UserController } from "./controllers/user.controller";
 import { CreateUserService } from "./services/create-user.service";
 import { PrismaService } from "src/infra/database/prisma.service";
 import { UserImplRepository } from "./repositories/user-impl.repository";
+import { IUserRepository } from "./repositories/user.repository";
 
 @Module({
   imports: [],
@@ -11,7 +12,7 @@ import { UserImplRepository } from "./repositories/user-impl.repository";
     CreateUserService, 
     PrismaService,
     {
-      provide: 'IUserRepository',
+      provide: IUserRepository,
       useClass: UserImplRepository
     }
   ],
