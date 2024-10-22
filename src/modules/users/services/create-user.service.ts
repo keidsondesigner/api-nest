@@ -1,6 +1,6 @@
 import { PrismaService } from "src/infra/database/prisma.service";
 import { UserDTO } from "../dto/user.dto";
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class CreateUserService {
@@ -15,7 +15,8 @@ export class CreateUserService {
     });
 
     if (user) {
-      throw new Error("Usuário já cadastrado.");
+      // mensagem de erro ao criar um User, se já existe um User com o mesmo username ou email;
+      throw new HttpException("Usuário já cadastrado.", HttpStatus.BAD_REQUEST);
     }
 
     return await this.prismaService.user.create({
