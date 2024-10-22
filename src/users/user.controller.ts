@@ -1,4 +1,13 @@
-import { Controller, Get, Param, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { randomUUID } from "crypto";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
 
 //@Controller('users')
 @Controller()
@@ -15,5 +24,19 @@ export class UserController {
   @Get('/users/findAllByPage')
   findAllByPage(@Query("p") page: number, @Query("r") limit: number) {
     return `Retornando ${JSON.stringify(page)} de ${JSON.stringify(limit)}`;
+  }
+
+  // http://localhost:3000/users/create
+  // {
+  //   "name": "teste nome",
+  //   "email": "teste@email.com",
+  //   "password": "12345678"
+  // }
+  @Post('/users/create')
+  create(@Body() body: User) {
+    return {
+      ...body,
+      id: randomUUID()
+    }
   }
 }
