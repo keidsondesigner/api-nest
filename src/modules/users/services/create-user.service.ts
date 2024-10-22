@@ -1,12 +1,12 @@
 import { UserDTO } from "../dto/user.dto";
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { hash } from "bcrypt";
 import { IUserRepository } from "../repositories/user.repository";
 
 @Injectable()
 export class CreateUserService {
 
-  constructor(private userRepository: IUserRepository) {}
+  constructor(@Inject('IUserRepository') private userRepository: IUserRepository) {}
 
   async execute(body: UserDTO) {
     // verificando se o User existe;
