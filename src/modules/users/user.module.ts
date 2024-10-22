@@ -17,6 +17,4 @@ import { IUserRepository } from "./repositories/user.repository";
     }
   ],
 })
-export class UserModule {
-
-}
+export class UserModule { }
