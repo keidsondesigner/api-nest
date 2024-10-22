@@ -1,6 +1,7 @@
 import { PrismaService } from "src/infra/database/prisma.service";
 import { UserDTO } from "../dto/user.dto";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { hash } from "bcrypt";
 
 @Injectable()
 export class CreateUserService {
@@ -19,14 +20,15 @@ export class CreateUserService {
       throw new HttpException("Usuário já cadastrado.", HttpStatus.BAD_REQUEST);
     }
 
+    const hashedPassword = await hash(body.password, 10);
     return await this.prismaService.user.create({
       data: {
         name: body.name,
         username: body.username,
         email: body.email,
-        password: body.password
+        password: hashedPassword
       }
     });
-    
+
   }
 }
