@@ -1,18 +1,18 @@
-import { PrismaService } from "src/infra/database/prisma.service";
 import { UserDTO } from "../dto/user.dto";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { hash } from "bcrypt";
+import { IUserRepository } from "../repositories/user.repository";
 
 @Injectable()
 export class CreateUserService {
 
-  constructor(private prismaService: PrismaService) {}
+  constructor(private userRepository: IUserRepository) {}
 
   async execute(body: UserDTO) {
-    const user = await this.prismaService.user.findFirst({
-      where: {
-        OR: [{ username: body.username }, { email: body.email }]
-      },
+    // verificando se o User existe;
+    const user = await this.userRepository.findByUserOrEmail({
+      name: body.name,
+      email: body.email
     });
 
     if (user) {
@@ -21,13 +21,12 @@ export class CreateUserService {
     }
 
     const hashedPassword = await hash(body.password, 10);
-    return await this.prismaService.user.create({
-      data: {
-        name: body.name,
-        username: body.username,
-        email: body.email,
-        password: hashedPassword
-      }
+    // criando um novo User;
+    return await this.userRepository.save({
+      name: body.name,
+      username: body.username,
+      email: body.email,
+      password: hashedPassword
     });
 
   }
