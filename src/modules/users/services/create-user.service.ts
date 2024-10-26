@@ -20,6 +20,7 @@ export class CreateUserService {
       throw new HttpException("Usuário já cadastrado.", HttpStatus.BAD_REQUEST);
     }
 
+    // hash de senha com 10 caracteres;
     const hashedPassword = await hash(body.password, 10);
     // criando um novo User;
     return await this.userRepository.save({
