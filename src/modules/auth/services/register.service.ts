@@ -5,7 +5,7 @@ import { PrismaService } from "src/infra/database/prisma.service";
 import { compare } from "bcrypt";
 
 @Injectable()
-export class LoginService {
+export class RegisterService {
   constructor(private jwtService: JwtService, private prismaService: PrismaService) {}
 
   async execute(body: UserDTO) {
