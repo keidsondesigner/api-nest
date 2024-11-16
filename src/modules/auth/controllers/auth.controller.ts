@@ -6,11 +6,11 @@ import { UserDTO } from "../dto/user.dto";
 @Controller('/auth')
 export class AuthController {
 
-  constructor(private registerService: LoginService) {}
+  constructor(private loginService: LoginService) {}
 
-  @Post('/register')
-  async register(@Body() body: UserDTO) {
-    const token = await this.registerService.execute(body);
+  @Post('/login')
+  async login(@Body() body: UserDTO) {
+    const token = await this.loginService.execute(body);
     return token;
   }
 }
