@@ -1,14 +1,15 @@
-import { UserDTO } from "../dto/user.dto";
+
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { hash } from "bcrypt";
 import { IUserRepository } from "../repositories/user.repository";
+import { RegisterUserDTO } from "src/modules/auth/dto/register-user.dto";
 
 @Injectable()
-export class CreateUserService {
+export class RegisterUserService {
 
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(body: UserDTO) {
+  async execute(body: RegisterUserDTO) {
     // verificando se o User existe;
     const user = await this.userRepository.findByUserOrEmail({
       name: body.name,

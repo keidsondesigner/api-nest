@@ -1,7 +1,8 @@
 import { PrismaService } from "src/infra/database/prisma.service";
-import { UserNameAndEmailDTO, CreatedUserDTO, UserDTO } from "../dto/user.dto";
+
 import { IUserRepository } from "./user.repository";
 import { Injectable } from "@nestjs/common";
+import { CreatedUserDTO, RegisterUserDTO, UserNameAndEmailDTO } from "../dto/register-user.dto";
 
 @Injectable()
 export class UserImplRepository  implements IUserRepository{
@@ -17,7 +18,7 @@ export class UserImplRepository  implements IUserRepository{
     });
   }
 
-  async save(data: UserDTO): Promise<CreatedUserDTO> {
+  async save(data: RegisterUserDTO): Promise<CreatedUserDTO> {
     return await this.prismaService.user.create({
       data: {
         name: data.name,
