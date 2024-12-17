@@ -6,6 +6,8 @@ import { JwtModule } from "@nestjs/jwt";
 import { RegisterUserService } from "./services/register-user.service";
 import { IUserRepository } from "./repositories/user.repository";
 import { UserImplRepository } from "./repositories/user-impl.repository";
+import { ProfileUserService } from "./services/profile-user.service";
+import { AuthGuard } from "src/infra/providers/auth-guard.provider";
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { UserImplRepository } from "./repositories/user-impl.repository";
     PrismaService,
     LoginService,
     RegisterUserService,
+    ProfileUserService,
+    AuthGuard,
     {
       provide: IUserRepository,
       useClass: UserImplRepository

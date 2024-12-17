@@ -4,4 +4,5 @@ import { CreatedUserDTO, RegisterUserDTO, UserNameAndEmailDTO } from "../dto/reg
 export abstract class IUserRepository {
   abstract findByUserOrEmail(data: UserNameAndEmailDTO): Promise<CreatedUserDTO | null>;
   abstract save(data: RegisterUserDTO): Promise<CreatedUserDTO>;
+  abstract findById(id: string): Promise<CreatedUserDTO | null>;
 }
