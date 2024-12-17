@@ -71,6 +71,31 @@ $ mau deploy
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
+## Prisma Commands
+
+```bash
+# Generate Prisma Client
+$ npx prisma generate
+
+# Create a new migration
+$ npx prisma migrate dev --name init
+
+# Reset the database
+$ npx prisma migrate reset
+
+# Open Prisma Studio (Database GUI)
+$ npx prisma studio
+
+# Format the schema file
+$ npx prisma format
+
+# Pull the schema from an existing database
+$ npx prisma db pull
+
+# Push the schema state to the database
+$ npx prisma db push
+```
+
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
